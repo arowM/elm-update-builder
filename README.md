@@ -1,6 +1,6 @@
 # elm-update-builder
 
-[![Build Status](https://travis-ci.org/arowM/elm-update-builder.svg?branch=master)](https://travis-ci.org/arowM/elm-update-builder)
+[![Build Status](https://travis-ci.org/arowM/elm-update-builder.svg?branch=main)](https://travis-ci.org/arowM/elm-update-builder)
 [日本語版（Japanese version）](https://qiita.com/items/54818822ea8bf25108fe)
 
 ![logo](https://user-images.githubusercontent.com/1481749/115139779-de382400-a06e-11eb-80e7-22af97774bfa.jpg)
