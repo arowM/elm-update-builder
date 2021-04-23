@@ -7,12 +7,16 @@ module Update exposing
     , push
     , when
     , unless
+    , whenNothing
+    , whenJust
+    , whenOk
+    , whenErr
     , with
+    , on
     , onNothing
     , onJust
     , onOk
     , onErr
-    , on
     , map
     , child
     , maybeChild
@@ -40,16 +44,20 @@ It enables you to build a complex update function by composing primitive functio
 
 @docs when
 @docs unless
+@docs whenNothing
+@docs whenJust
+@docs whenOk
+@docs whenErr
 
 
 # Handle cases
 
 @docs with
+@docs on
 @docs onNothing
 @docs onJust
 @docs onOk
 @docs onErr
-@docs on
 
 
 # Lower level functions
@@ -260,6 +268,34 @@ when p updates =
 unless : Bool -> List (Update model msg) -> Update model msg
 unless =
     when << not
+
+
+{-| Evaluate `Update` only if the first argument value is `Nothing`.
+-}
+whenNothing : Maybe a -> List (Update model msg) -> Update model msg
+whenNothing ma ls =
+    onNothing ls ma
+
+
+{-| Evaluate `Update` only if the first argument value is `Just`.
+-}
+whenJust : Maybe a -> List (a -> Update model msg) -> Update model msg
+whenJust ma ls =
+    onJust ls ma
+
+
+{-| Evaluate `Update` only if the first argument value is `Ok`.
+-}
+whenOk : Result err a -> List (a -> Update model msg) -> Update model msg
+whenOk res ls =
+    onOk ls res
+
+
+{-| Evaluate `Update` only if the first argument value is `Err`.
+-}
+whenErr : Result err a -> List (err -> Update model msg) -> Update model msg
+whenErr res ls =
+    onErr ls res
 
 
 
