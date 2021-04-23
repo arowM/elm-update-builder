@@ -338,7 +338,7 @@ on p updates a =
         none
 
 
-{-| Evaluate `Update` only if the first argument value is `Nothing`.
+{-| Evaluate `Update` only if the case is `Nothing`.
 -}
 onNothing : List (Update model msg) -> Maybe a -> Update model msg
 onNothing updates ma =
@@ -350,7 +350,7 @@ onNothing updates ma =
             none
 
 
-{-| Evaluate `Update` only if the first argument value is `Just`.
+{-| Evaluate `Update` only if the case is `Just`.
 -}
 onJust : List (a -> Update model msg) -> Maybe a -> Update model msg
 onJust ls ma =
@@ -364,7 +364,7 @@ onJust ls ma =
                 |> batch
 
 
-{-| Evaluate `Update` only if the first argument value is `Ok`.
+{-| Evaluate `Update` only if the case is `Ok`.
 -}
 onOk : List (a -> Update model msg) -> Result err a -> Update model msg
 onOk ls res =
@@ -378,7 +378,7 @@ onOk ls res =
             none
 
 
-{-| Evaluate `Update` only if the first argument value is `Err`.
+{-| Evaluate `Update` only if the case is `Err`.
 -}
 onErr : List (err -> Update model msg) -> Result err a -> Update model msg
 onErr ls res =
