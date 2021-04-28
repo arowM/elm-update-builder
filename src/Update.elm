@@ -328,6 +328,20 @@ whenErr res ls =
             ]
 
 
+    updateWithBarSequentially : Update Model msg
+    updateWithBarSequentially =
+        with .bar
+            [ onJust
+                [ \n -> Update.modify <| \model ->
+                    { model | bar = Nothing }
+                ]
+            , onNothing
+                [ Update.modify <| \model ->
+                    { model | foo = "bar has changed" }
+                ]
+            ]
+
+
     run updateWithFoo
         { foo = ""
         , bar = Nothing
@@ -349,18 +363,17 @@ whenErr res ls =
             |> Tuple.first
     --> { foo = "4", bar = Just 4 }
 
+    run updateWithBarSequentially
+        { foo = "foo"
+        , bar = Just 4
+        }
+            |> Tuple.first
+    --> { foo = "bar has changed", bar = Nothing }
+
 -}
 with : (model -> a) -> List (a -> Update model msg) -> Update model msg
-with f ls =
-    Update <|
-        \model ->
-            let
-                (Update g) =
-                    ls
-                        |> List.map (\h -> h (f model))
-                        |> batch
-            in
-            g model
+with get =
+    List.foldl (\f acc -> andThenWith get f acc) none
 
 
 {-| Evaluate `Update` only if it matches the case.
@@ -435,6 +448,25 @@ then_ (Update f) (Update g) =
             let
                 ( model, cmd ) =
                     g a
+
+                ( model2, cmd2 ) =
+                    f model
+            in
+            ( model2
+            , Cmd.batch [ cmd, cmd2 ]
+            )
+
+
+andThenWith : (model -> a) -> (a -> Update model msg) -> Update model msg -> Update model msg
+andThenWith get fUpdate (Update g) =
+    Update <|
+        \x ->
+            let
+                ( model, cmd ) =
+                    g x
+
+                (Update f) =
+                    fUpdate (get model)
 
                 ( model2, cmd2 ) =
                     f model
