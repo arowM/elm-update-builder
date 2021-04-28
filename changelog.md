@@ -1,3 +1,9 @@
+# 1.1.1
+
+### Bug fix
+
+* Support sequential updates with `with` function
+
 # 1.1.0
 
 ### Improvements
