@@ -5,6 +5,7 @@ module Update exposing
     , none
     , modify
     , push
+    , init
     , when
     , unless
     , whenNothing
@@ -38,6 +39,7 @@ It enables you to build a complex update function by composing primitive functio
 @docs none
 @docs modify
 @docs push
+@docs init
 
 
 # Handle conditions
@@ -246,6 +248,23 @@ push cmd =
     Update <|
         \model ->
             ( model, cmd model )
+
+
+{-| An `Update` to initialize.
+
+    init f =
+        batch
+            [ modify (f >> Tuple.first)
+            , push (f >> Tuple.second)
+            ]
+
+-}
+init : (model -> ( model, Cmd msg )) -> Update model msg
+init f =
+    batch
+        [ modify (f >> Tuple.first)
+        , push (f >> Tuple.second)
+        ]
 
 
 
