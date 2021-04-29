@@ -354,6 +354,10 @@ whenErr res ls =
                 [ \n -> Update.modify <| \model ->
                     { model | bar = Nothing }
                 ]
+            , onJust
+                [ \_ -> Update.modify <| \model ->
+                    { model | foo = "This Update is not evaluated" }
+                ]
             , onNothing
                 [ Update.modify <| \model ->
                     { model | foo = "bar has changed" }
