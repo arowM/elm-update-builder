@@ -1,3 +1,9 @@
+# 1.2.0
+
+### Improvements
+
+* Add `init`
+
 # 1.1.1
 
 ### Bug fix
