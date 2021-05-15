@@ -260,11 +260,8 @@ push cmd =
 
 -}
 init : (model -> ( model, Cmd msg )) -> Update model msg
-init f =
-    batch
-        [ modify (f >> Tuple.first)
-        , push (f >> Tuple.second)
-        ]
+init =
+    Update
 
 
 
@@ -517,4 +514,4 @@ andThenWith get fUpdate (Update g) =
 -}
 batch : List (Update model msg) -> Update model msg
 batch =
-    List.foldl (\a acc -> then_ a acc) none
+    List.foldl then_ none
