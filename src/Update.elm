@@ -142,7 +142,7 @@ child take put (Update f) =
 
 
 {-| Same as `child` but do nothing if first argument becomes to `Nothing`.
-It is usefull for handling page updates of SPA.
+It is useful for handling page updates of SPA.
 
 e.g.,
 
