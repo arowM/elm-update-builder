@@ -3,7 +3,7 @@
     "name": "arowM/elm-update-builder",
     "summary": " ",
     "license": "MIT",
-    "version": "1.3.1",
+    "version": "1.3.2",
     "exposed-modules": [
         "Update",
         "Update.Lifter",
